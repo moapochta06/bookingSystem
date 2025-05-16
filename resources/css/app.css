@@ -1,0 +1,30 @@
+@import 'tailwindcss';
+@import './fonts.css';
+
+
+/* @theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+} */
+:root {
+    --text-color: #0A2036;
+    --bg-color: #F3F4F6;
+    --elem-color: #0A50DD;
+  }
+  
+body {
+    font-family: 'SF Pro Display', sans-serif;
+    color: var(--text-color);
+    background: var(--bg-color);
+  }
+
+button,a:hover{
+  cursor: pointer;
+}
+
+input{
+  outline: none;
+  border: none;
+}
+
+
