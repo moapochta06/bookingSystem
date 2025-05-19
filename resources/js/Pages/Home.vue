@@ -2,7 +2,7 @@
     <Layout>
         <div class="content">
             <h1 class="">Бронируйте  <span>легко</span>  — отдыхайте с удовольствием!</h1>
-            <p v-if="user">Здравствуйте, {{ user }}</p>
+            <!-- <p v-if="user">Здравствуйте, {{ user }}</p> -->
             <Search />
         </div>
     </Layout>
@@ -37,12 +37,12 @@ const user = computed(() => page.props.auth?.user?.name);
     }
     h1{ 
         margin-top: 148px;
-        font-size: 32px;
+        font-size: 38px;
         font-weight: 500;
-        margin-bottom: 89px;
+        margin-bottom: 68px;
     }
     span {
-    padding: 0 5px;
+    padding: 0 9px;
     position: relative; 
     display: inline-block; 
 }
@@ -53,8 +53,8 @@ span::after {
     top: 50%;
     left: 50%;
     transform: translate(-45%, -36%); 
-    width: 222px;
-    height: 84px;
+    width: 277px;
+    height: 110px;
     background: url(../../images/Vector.svg) no-repeat center;
     background-size: contain;
 }

@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Models;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Database\Eloquent\Model;
+
+class EstateObject extends Model
+{
+    protected $table = 'estate_objects';
+
+    // Поля, которые можно заполнять через массовое присвоение
+    protected $fillable = [
+        'title',
+        'city',
+        'street',
+        'house_number',
+        'apartment_number',
+        'rooms_count',
+        'guests_count',
+        'area',
+        'price',
+        'description',
+        'image',
+        'pets_allowed',
+        'free_cleaning',
+        'air_conditioner',
+        'wifi',
+    ];
+
+
+    public static function storeImage($image)
+    {
+        $path = $image->store('images/estate', 'public');
+        return $path;
+    }
+
+}
+

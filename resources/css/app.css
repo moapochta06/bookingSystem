@@ -18,13 +18,26 @@ body {
     background: var(--bg-color);
   }
 
-button,a:hover{
+button,a:hover {
   cursor: pointer;
 }
 
-input{
+input, select {
   outline: none;
   border: none;
 }
+
+input::placeholder {
+  color: var(--text-color);
+}
+
+select {
+    -webkit-appearance: none; 
+    -moz-appearance: none;    
+    appearance: none; 
+    position: relative;        
+}
+
+
 
 

@@ -13,14 +13,10 @@
             @success="handleLoginSuccess"
         />
     </div>
-    <!-- Модальное окно регистрации
-    <div v-if="isRegistrationModalOpen" class="modal-overlay">
-        <RegisterModal @close="closeRegistrationModal" />
-    </div> -->
   </template>
   
   <script setup>
-  import { computed,ref,watch } from 'vue';
+  import { computed,ref } from 'vue';
   import { usePage, Link, router } from '@inertiajs/vue3';
   import LoginModal from './LoginModal.vue';
   const page = usePage();
@@ -36,14 +32,6 @@
 
   const isAuthenticated = computed(() => !!page.props.auth?.user);
 
-//   const isAuthenticated = ref(!!page.props.auth?.user);
-  
-//   watch(
-//     () => page.props.auth?.user,
-//     (newUser) => {
-//         isAuthenticated.value = !!newUser;
-//     }
-//   );
   const isAdmin = computed(() => page.props.auth?.user?.is_admin);
   const handleLoginSuccess = () => {
     console.log('Авторизация успешна');

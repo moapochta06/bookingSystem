@@ -12,4 +12,5 @@ class AppController extends Controller
             'title' => 'Главная страница',
         ]);
     }
+    
 }
