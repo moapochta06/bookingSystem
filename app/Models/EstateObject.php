@@ -8,7 +8,6 @@ class EstateObject extends Model
 {
     protected $table = 'estate_objects';
 
-    // Поля, которые можно заполнять через массовое присвоение
     protected $fillable = [
         'title',
         'city',
@@ -27,7 +26,11 @@ class EstateObject extends Model
         'wifi',
     ];
 
-
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
+    
     public static function storeImage($image)
     {
         $path = $image->store('images/estate', 'public');

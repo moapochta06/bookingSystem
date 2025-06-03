@@ -11,10 +11,8 @@ use Illuminate\Validation\Rules;
 
 class RegisterController extends Controller
 {
-    // Обработка данных регистрации
     public function store(Request $request)
     {
-        // Валидация входных данных
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -24,19 +22,12 @@ class RegisterController extends Controller
             'email.unique' => 'Этот email уже зарегистрирован.',
             'password.confirmed' => 'Пароли не совпадают.',
         ]);
-
-        // Создание нового пользователя
         $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
         ]);
-
-        // Аутентификация пользователя
         Auth::guard('web')->login($user);
-
-        // Перенаправление с сообщением
         return redirect('/');
     }
 }
-// ->with('auth', ['user' => null])

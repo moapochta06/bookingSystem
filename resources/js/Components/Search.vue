@@ -1,5 +1,5 @@
 <template>
-    <form class="search" action="#">
+    <form class="search" @submit.prevent="submitForm">
       <input 
         type="text" 
         v-model="form.city" 
@@ -12,12 +12,11 @@
         @click="showCalendar = true"
         readonly
       >
-      <select name="" id="">
+      <select v-model="form.guests">
         <option value="">Количество гостей</option>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
-        <option value="+">+</option>
       </select>
        <button type="submit"></button>
     </form>
@@ -32,9 +31,13 @@
   <script setup>
   import { setupCalendar } from 'v-calendar';
   import 'v-calendar/style.css';
-  import { ref, computed } from 'vue';
+  import { ref, computed, onMounted } from 'vue'
   import { DatePicker } from 'v-calendar';
+  import { router } from '@inertiajs/vue3' 
+
   
+  const showCalendar = ref(false);
+
   const form = ref({
     city: '',
     dates: {
@@ -43,8 +46,6 @@
     },
     guests: ''
   });
-  
-  const showCalendar = ref(false);
   
   const attributes = computed(() => [
     {
@@ -61,6 +62,37 @@
     if (!dates?.start || !dates?.end) return '';
     return `${dates.start.toLocaleDateString()}   —   ${dates.end.toLocaleDateString()}`;
   };
+
+  const formatForUrl = (date) => {
+      return date ? new Date(date).toISOString().split('T')[0] : ''
+  }
+
+
+  const urlParams = new URLSearchParams(window.location.search)
+
+  onMounted(() => {
+      form.value = {
+          city: urlParams.get('city') || '',
+          dates: {
+              start: urlParams.get('from') ? new Date(urlParams.get('from')) : null,
+              end: urlParams.get('to') ? new Date(urlParams.get('to')) : null,
+          },
+          guests: urlParams.get('guests') || '',
+      }
+  })
+
+const submitForm = () => {
+    const startDate = formatForUrl(form.value.dates.start)
+    const endDate = formatForUrl(form.value.dates.end)
+
+    router.get('/search-results', {
+        city: form.value.city,
+        from: startDate,
+        to: endDate,
+        guests: form.value.guests,
+        show_all: false,
+    })
+}
   </script>
   
   <style scoped>
@@ -70,6 +102,7 @@
 }
 
 .search {
+    margin: 0 auto 40px;
     width: 857px;
     height: 67px;
     background: var(--elem-color);
@@ -104,40 +137,3 @@ button {
   </style>
 
 
-<!-- <template>
-    <div class="search">
-        <input type="text" v-model="form.city" placeholder="Город">
-        <input type="text" v-model="form.date" @focus="openCalendar">
-        <DatePicker
-        v-model.range="form.dates"
-        :attributes="calendarAttributes"
-        is-range
-        :popover="{ visibility: 'focus' }"
-        @onEnd="handleEnd"
-        />
-    </div>
-</template>
-<script setup>
-import { ref } from 'vue'
-import { useForm } from '@inertiajs/vue3';
-const form = useForm({
-    city: '',
-    date: '',
-});
-const calendar = ref(false)
-const openCalendar = () =>{
-    calendar.value = true
-}
-</script>
-<style scoped>
-.search{
-    width: 857px;
-    height: 67px;
-    background: var(--elem-color);
-    border-radius: 22px;
-}
-input{
-    width: 269px;
-    height: 50px;
-}
-</style> -->

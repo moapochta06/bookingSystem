@@ -3,6 +3,7 @@
       <Link href="/">Главная</Link>
       <Link href="/objects" v-if="isAdmin">Объекты</Link>
       <Link href="/bookings" v-if="isAdmin">Бронирования</Link>
+      <Link href="/" v-if="isAuthenticated && !isAdmin">Мои бронирования</Link>
       <a href="#" @click.prevent="openModal" v-if="!isAuthenticated">Войти</a>
       <button @click="logout" v-else>Выйти</button>
     </div>
@@ -34,7 +35,6 @@
 
   const isAdmin = computed(() => page.props.auth?.user?.is_admin);
   const handleLoginSuccess = () => {
-    console.log('Авторизация успешна');
     closeModal();
   };
   
@@ -48,8 +48,9 @@
   .navbar {
     display: flex;
     justify-content: flex-end;
-    margin-top: 38px;
     gap: 30px;
+    width: 857px;
+    margin: 22px auto 55px;
   }
   
   a, button {
@@ -62,14 +63,14 @@
     font: inherit;
   }
   
-  .modal-overlay {
+  /* .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.293);
+    background: rgba(0, 0, 0, 0.493);
     display: flex;
     z-index: 999;
-  }
+  } */
   </style>

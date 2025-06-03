@@ -7,11 +7,11 @@
             <div class="">
                 <h4>{{ object.title }}</h4>
                 <span>{{ object.area }}м²</span>
-                <span>{{ object.rooms_count }}</span>
+                <span>{{ object.rooms_count }}комнаты</span>
                 <span>{{ object.guests_count }}гостя</span>
                 <div class="price">{{ object.price }} ₽ / ночь</div>
                 <div class="adress">{{ object.city }}, ул.{{ object.street }}, д.{{ object.house_number }}, кв.{{ object.apartment_number }}</div>
-                <a href="">Подробнее</a>
+                <Link method="get" :href="`/objects/estate/${object.id}`">Подробнее</Link>
                 <button class="more_btn" @click="toggleActions(object.id)">...</button>
             </div>
             <!-- Выпадающее меню действий -->
@@ -28,8 +28,9 @@
                     </ul>
                 </div>
         </div>
-        
-        <button class="add">Добавить +</button>
+        <Link method="get" href="/admin/create/estate" >
+                Добавить +
+        </Link>
     </Layout>
 </template>
 
@@ -39,7 +40,7 @@ import { reactive, ref} from 'vue'
 import { router, usePage, Link } from '@inertiajs/vue3'
 
 const page = usePage();
-const { estateObjects } = usePage().props
+const { estateObjects} = usePage().props
 document.title = page.props.title;
 
 // Отслеживаем активный dropdown
@@ -53,6 +54,5 @@ function toggleActions(id) {
 <style scoped>
 h1 {
     font-weight: 500;
-    margin-top: 65px;
 }
 </style>

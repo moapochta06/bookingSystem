@@ -16,7 +16,6 @@ import Header from '../Components/Header.vue';
 
 <style scoped>
     .layout{
-        /* padding: 0 224px; */
         max-width: 922px;
         margin: 0 auto;
     }

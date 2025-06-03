@@ -2,7 +2,6 @@
     <Layout>
         <div class="content">
             <h1 class="">Бронируйте  <span>легко</span>  — отдыхайте с удовольствием!</h1>
-            <!-- <p v-if="user">Здравствуйте, {{ user }}</p> -->
             <Search />
         </div>
     </Layout>
@@ -12,22 +11,13 @@
 import { ref, computed } from 'vue';
 import Search from '../Components/Search.vue';
 import Layout from '../Layouts/Layout.vue';
-// import { watch,computed} from 'vue';
 import { usePage } from '@inertiajs/vue3';
 
 const page = usePage();
-// Устанавливаем начальное значение заголовка
+
 document.title = page.props.title;
 const user = computed(() => page.props.auth?.user?.name);
-// const user = ref(page.props.auth?.user.name);
-// // Создаём реактивное свойство
-// const title = computed(() => page.props.title);
 
-// // Следим за изменениями
-// watch(title, (newTitle) => {
-//     console.log('New title:', newTitle);
-//     document.title = newTitle;
-// });
 </script>
 <style scoped>
     .content{
@@ -36,7 +26,7 @@ const user = computed(() => page.props.auth?.user?.name);
         align-items: center;
     }
     h1{ 
-        margin-top: 148px;
+        margin-top: 89px;
         font-size: 38px;
         font-weight: 500;
         margin-bottom: 68px;

@@ -128,11 +128,11 @@ const form = reactive({
     guests_count: props.estateObject.guests_count || 1,
     area: props.estateObject.area || '',
     price: props.estateObject.price || '',
-    pets_allowed: props.estateObject.pets_allowed || 0,
-    free_cleaning: props.estateObject.free_cleaning || 0,
-    air_conditioner: props.estateObject.air_conditioner || 0,
-    wifi: props.estateObject.wifi || 0,
-    image: null,
+    pets_allowed: Number(props.estateObject.pets_allowed) || 0,
+    free_cleaning: Number(props.estateObject.free_cleaning) || 0,
+    air_conditioner: Number(props.estateObject.air_conditioner) || 0,
+    wifi: Number(props.estateObject.wifi) || 0,
+    image: props.estateObject.image || null,
     image_preview: props.estateObject.image_url || null,
 })
 
@@ -156,7 +156,6 @@ const handleImageChange = (event) => {
     const file = event.target.files[0]
     if (file) {
         form.image = file
-        // Create preview
         const reader = new FileReader()
         reader.onload = (e) => {
             form.image_preview = e.target.result
@@ -166,30 +165,33 @@ const handleImageChange = (event) => {
 }
 
 const submitForm = () => {
-    // Create FormData for file upload
     const formData = new FormData()
-    
-    // Append all form fields to FormData
     Object.keys(form).forEach(key => {
-        if (key !== 'image_preview') {
-            formData.append(key, form[key])
+        if (key === 'image_preview') {
+            return 
         }
+
+        if (key === 'image' && !form.image) {
+            return 
+        }
+
+        formData.append(key, form[key])
     })
+
 
     router.post(`/admin/estate/${props.estateObject.id}`, formData, {
         preserveScroll: true,
         onSuccess: () => {
-            // Handle success if needed
+       
         },
         onError: (errors) => {
-            // Handle errors if needed
+        
         }
     })
 }
 </script>
 
 <style scoped>
-/* Add your styles here */
 .content {
     max-width: 1200px;
     margin: 0 auto;

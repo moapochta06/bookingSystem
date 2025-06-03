@@ -13,14 +13,12 @@ class LoginController extends Controller
     {
         $credentials = $request->validate([
             'email' => ['required', 'email'],
-            'password' => ['required'],
+            'password' => ['required']
         ]);
     
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            
-            return redirect()->intended('/')->with([
-                'message' => 'Вы успешно вошли',
+            return redirect()->intended()->with([
                 'auth' => [
                     'user' => [
                         'id' => Auth::user()->id,

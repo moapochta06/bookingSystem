@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Models\EstateObject;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class EstateObjectController extends Controller
@@ -17,6 +16,19 @@ class EstateObjectController extends Controller
         ]);
     }
 
+    public function get_estate(Request $request, $id) {
+         $object = EstateObject::findOrFail($id);
+         
+        return Inertia::render('ObjectDetail', [
+            'title' => 'Просмотр объекта',
+            'estateObject' => $object,
+            'fromDate' => $request->query('from'),
+            'toDate' => $request->query('to'),
+            'guests' => $request->query('guests'),
+        ]);
+
+    }
+
     public function get_form()
     {
         return Inertia::render('CreateObject', [
@@ -27,27 +39,19 @@ class EstateObjectController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-         // Заменяем все "null"-строки на null
-        foreach ($data as $key => $value) {
-            if ($value === 'null') {
-                $data[$key] = null;
-            }
-        }
-   
+
         if ($request->hasFile('image')) {
             $data['image'] = EstateObject::storeImage($request->file('image'));
         }
-        // EstateObject::create($validated);
         EstateObject::create($data);
 
-        return back()->with('success', 'Объект успешно создан.');
+        return back();
     }
 
     public function destroy($id)
     {
         $object = EstateObject::findOrFail($id);
 
-        // Удаляем изображение, если оно было
         if ($object->image) {
             Storage::disk('public')->delete($object->image);
         }
@@ -74,10 +78,9 @@ public function update(Request $request, $id)
       if ($request->hasFile('image')) {
             $data['image'] = EstateObject::storeImage($request->file('image'));
         }
-    // Обновляем объект
     $estateObject->update($data);
-    // Перенаправляем
     return redirect('/objects');
 }
- 
+
+
 }

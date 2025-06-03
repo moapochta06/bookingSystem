@@ -1,3 +1,4 @@
+
 <template>
     <div class="modal-content">
     <h1>Создайте аккаунт</h1>
