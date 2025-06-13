@@ -17,7 +17,7 @@ button,a:hover {
   cursor: pointer;
 }
 
-input, select {
+input, select, button {
   outline: none;
   border: none;
 }

@@ -3,7 +3,7 @@
       <Link href="/">Главная</Link>
       <Link href="/objects" v-if="isAdmin">Объекты</Link>
       <Link href="/bookings" v-if="isAdmin">Бронирования</Link>
-      <Link href="/" v-if="isAuthenticated && !isAdmin">Мои бронирования</Link>
+      <!-- <Link href="/" v-if="isAuthenticated && !isAdmin">Мои бронирования</Link> -->
       <a href="#" @click.prevent="openModal" v-if="!isAuthenticated">Войти</a>
       <button @click="logout" v-else>Выйти</button>
     </div>

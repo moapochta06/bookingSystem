@@ -36,7 +36,7 @@ public function store(Request $request)
             'estate_object_id' => $validated['estate_object_id'],
         ]);
 
-        return back()->with('success', 'Бронирование успешно создано');
+        return back();
 
     }
 }
